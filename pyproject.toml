@@ -1,0 +1,35 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "dss_mapping"
+dynamic = ["version"]
+description = 'Code to manage the sychronization of HACID DSS and the HACID Climate Services Knowledge Graph.'
+readme = "README.md"
+requires-python = ">=3.9"
+license = "MIT"
+keywords = []
+authors = [
+  { name = "Miguel Ceriani", email = "miguel.ceriani@gmail.com" },
+]
+classifiers = [
+  "Development Status :: 4 - Beta",
+  "Programming Language :: Python",
+  "Programming Language :: Python :: 3.9",
+  "Programming Language :: Python :: 3.10",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12"
+]
+dependencies = [
+  "jq @ git+https://github.com/miguel76/jq.py.git",
+  "pydantic>=2.12.5"
+]
+
+[project.urls]
+Documentation = "https://github.com/hacid-project/dss-mapping/#readme"
+Issues = "https://github.com/hacid-project/dss-mapping/issues"
+Source = "https://github.com/hacid-project/dss-mapping"
+
+[tool.hatch.version]
+path = "src/dss_mapping/__about__.py"
