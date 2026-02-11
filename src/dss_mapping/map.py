@@ -2,7 +2,7 @@ import jq
 from pydantic import BaseModel
 import pathlib
 
-def map(
+def model_to_jsonld(
     model: BaseModel
 ):
     print(pathlib.Path(__file__).parent.resolve())

@@ -2,4 +2,4 @@
 #
 # SPDX-License-Identifier: MIT
 
-from map import map
+from map import model_to_jsonld
