@@ -29,6 +29,7 @@ def geometry:
     end;
 
 def request: {
+    "@type": "ccso:Request",
     impacts: ((.hazards // [])| map({
         hazard: (.value | fromjson | .hazard?.value),
         description: .description
@@ -41,16 +42,16 @@ def request: {
 
 def question: request + {
     "@id": @uri "questions:\(.id)",
-    owner: @uri "users:\(.owner_id)",
-    question: .question,
+    maintained_by: @uri "users:\(.owner_id)",
+    label: .question,
     additional_information: .additional_information,
-    description: .description
+    comment: .description
 };
 
 def case($map_questions): request + {
     "@id": @uri "cases:\(.id)",
-    owner: @uri "users:\(.owner?.id)",
-    title: .title,
+    maintained_by: @uri "users:\(.owner?.id)",
+    label: .title,
     organization: .organization,
     industry: @uri "sectors:\(.industry?.id)",
     cordex_code: "\(.cordex?.id | to_cordex_code)",
@@ -73,7 +74,7 @@ def case($map_questions): request + {
     user_need: .user_need,
     goals: .goals,
     decision_context: .decision_context,
-    questions: (
+    components: (
         (.questions // []) | 
         map(
             if $map_questions then question

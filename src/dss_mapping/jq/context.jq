@@ -6,6 +6,7 @@ def context: {
     top: "https://w3id.org/hacid/onto/top-level/",
     ccso: "https://w3id.org/hacid/onto/ccso/",
     data: "https://w3id.org/hacid/onto/data/",
+    jdg: "https://w3id.org/hacid/onto/core/judgement/",
     index: "https://w3id.org/hacid/data/cs/climdex/indices/",
     sector: "https://w3id.org/hacid/data/cs/climdex/sectors/",
     parameter: "https://w3id.org/hacid/data/cs/climdex/parameters/",
@@ -18,22 +19,26 @@ def context: {
     geodetic: "https://w3id.org/hacid/data/cs/dimensions/geodetic/reference-frames/",
     ensemble: {
         "@reverse": "ccso:hasMemberSimulation"
+    },
+    answers: {
+        "@reverse": "jdg:isJudgementOn"
     }
 } +
 (
     {
         "@type": {
             "@id": {
-                has_output: "data:hasOutput",
-                has_part: "top:hasPart",
-                dependent_variable: "data:holdsSpecializationOfVariable",
-                single_dependent_variable: "data:isSpecializationOfVariable",
-                independent_variable: "data:dependsOnVariable",
-                downscaling_of: "ccso:isDownscalingOf", 
-                model: "ccso:usesModel", 
-                scenario: "ccso:refersToScenario", 
+                parts: "top:hasPart",
                 maintained_by: "ccso:isMaintainedBy",
-                specialization_criterion: "data:isSpecializedAccordingTo",
+                components: "top:hasComponent",
+                hazard: "ccso:isPotentialImpactTypeOf",
+                # answers: "ccso:hasAssessment",
+                impacts: "top:isClassifiedBy",
+                industry: "top:isClassifiedBy",
+                tasks: "top:definesTask",
+                judge: "jdg:hasJudge",
+                judges_on: "jdg:isJudgementOn",
+
                 specialization_on: "data:isSpecializationOn",
                 selected_region: "data:hasSelectedRegion",
                 start_datetime: "data:hasStartDateTime",
