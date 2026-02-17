@@ -1,4 +1,5 @@
 import "GeoJSON" as GeoJSON;
+import "time" as TIME;
 
 def to_cordex_code:
     [
@@ -24,6 +25,7 @@ def geometry:
     if . then
         GeoJSON::to_wkt | {
             "@id": @uri "geometries:\(.)",
+            "@type": "data:GeodeticRegion",
             wkt: .
         }
     end;
@@ -52,20 +54,33 @@ def case($map_questions): request + {
     "@id": @uri "cases:\(.id)",
     maintained_by: @uri "users:\(.owner?.id)",
     label: .title,
-    organization: .organization,
-    industry: @uri "sectors:\(.industry?.id)",
+    stakeholder: (
+        .organization |
+        if . then {
+            "@id": @uri "org:\(.)",
+            label: .
+        } end
+    ),
+    industry: (
+        .industry |
+        if . then {
+            "@id": @uri "sectors:\(.id)",
+            label: .name
+        } end
+    ),
     cordex_code: "\(.cordex?.id | to_cordex_code)",
-    cordex_location: .cordex?.geometry | geometry,
-    location: .location | geometry,
-    time_scale: {
-        start: .time_scale_start,
-        end: .time_scale_end
-    },
+    # cordex_location: .cordex?.geometry | geometry,
+    location: .location // .cordex?.geometry | geometry,
+    time_scale: (
+        [.time_scale_start,.time_scale_end] |
+        TIME::strings_to_interval
+    ),
     risk_tolerance: (
         .risk_tolerance |
         if . then
             {
                 "@id": @uri "tolerances:\(.name)",
+                "@type": "top:Concept",
                 label: .name,
                 value: (.id | tonumber)
             }
@@ -84,6 +99,7 @@ def case($map_questions): request + {
     ),
     rest: (
         del(.id) | 
+        del(.type) | 
         del(.owner) |
         del(.title) | 
         del(.organization) | 

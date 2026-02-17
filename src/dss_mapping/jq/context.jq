@@ -7,6 +7,12 @@ def context: {
     ccso: "https://w3id.org/hacid/onto/ccso/",
     data: "https://w3id.org/hacid/onto/data/",
     jdg: "https://w3id.org/hacid/onto/core/judgement/",
+    geo: "http://www.opengis.net/ont/geosparql#",
+    timentervals: "https://w3id.org/hacid/data/cs/dimensions/time/reference-frames/gregorian/regions/",
+
+    likert: "https://w3id.org/hacid/data/cs/likert-5/",
+    ratingdims: "https://w3id.org/hacid/data/cs/contribution-rating-dims/",
+
     index: "https://w3id.org/hacid/data/cs/climdex/indices/",
     sector: "https://w3id.org/hacid/data/cs/climdex/sectors/",
     parameter: "https://w3id.org/hacid/data/cs/climdex/parameters/",
@@ -22,6 +28,12 @@ def context: {
     },
     answers: {
         "@reverse": "jdg:isJudgementOn"
+    },
+    value: {
+        "@id": "top:value"
+    },
+    order_value: {
+        "@id": "top:orderValue"
     }
 } +
 (
@@ -38,6 +50,18 @@ def context: {
                 tasks: "top:definesTask",
                 judge: "jdg:hasJudge",
                 judges_on: "jdg:isJudgementOn",
+                created_at: "top:isObservableAt",
+                obj_value: "top:hasValue",
+                classified_by: "top:classifiedBy",
+                operation: "top:executedThroughOperation",
+                costant_default_input: "top:hasCostantDefaultInput",
+                prev_task: "top:directlyFollows",
+                input_from_tasks: "top:getsInputFromTask",
+                rationale: "top:rartionale",
+                stakeholder: "ccso:hasStakeholder",
+                location: "top:hasRegion",
+                time_scale: "top:hasRegion",
+                risk_tolerance: "top:classifiedBy",
 
                 specialization_on: "data:isSpecializationOn",
                 selected_region: "data:hasSelectedRegion",
@@ -47,10 +71,16 @@ def context: {
                 discretization: "data:hasDiscretization",
                 exact_bounding_region: "data:hasExactBoundingRegion",
             },
+            "http://www.w3.org/2001/XMLSchema#dateTime": {
+                date: "top:hasIntervalDate"
+            },
             "http://www.w3.org/2001/XMLSchema#duration": {
                 resolution_value: "data:hasResolutionValue",
                 period_value: "data:hasPeriodValue",
                 in_period_resolution_value: "data:hasInPeriodResolutionValue"
+            },
+            "geo:wktLiteral": {
+                wkt: "geo:asWKT"
             }
         },
         "@language": {

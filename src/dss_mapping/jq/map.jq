@@ -1,12 +1,11 @@
-import "cases" as CASES;
-import "contributions" as CONTRIBUTIONS;
-import "ratings" as RATINGS;
+import "request" as REQUEST;
+import "judgement" as JUDGEMENT;
 
 def map:
     if .type == "Case" then
-        CASES::case
+        REQUEST::case
     elif .type == "Contribution" then
-        CONTRIBUTIONS::contribution
+        JUDGEMENT::contribution
     elif .type == "Rating" then
-        RATINGS::rating
+        JUDGEMENT::rating
     end;
