@@ -1,3 +1,5 @@
+include "task_data";
+
 def judgment: {
     created_at: (
         .created_at |
@@ -47,7 +49,7 @@ def contribution: judgment + {
                                 end,
                             comment: .description,
                             operation: .task_uri,
-                            costant_default_input: .task_value?.classInstance?.value,
+                            costant_default_input: task_data,
                             input_from_tasks: (
                                 .parent_tasks // [] |
                                 map(@uri "contributions:\($contribution_id)/wf/tasks/\(.order_value)")

@@ -30,27 +30,31 @@ def datetime_string:
     "\(.year | number_tostring(4))-\(.month | number_tostring(2))-\(.day | number_tostring(2))T00:00:00Z";
 
 def normalize_date($roundUp):
-    (.[0:4] | tonumber) as $year |
-    (
-        if length > 4 then
-            .[5:7] | tonumber
-        elif $roundUp then
-            12
-        else 
-            1
-        end
-    ) as $month |
-    (
-        if length > 6 then 
-            .[8:10] | tonumber
-        elif $roundUp then
-            $month | days_in_month($year)
-        else
-            1
-        end
-    ) as $day |
-    {$year, $month, $day} | date_add_day |
-    datetime_string;
+    if not then
+        null
+    else
+        (.[0:4] | tonumber) as $year |
+        (
+            if length > 4 then
+                .[5:7] | tonumber
+            elif $roundUp then
+                12
+            else 
+                1
+            end
+        ) as $month |
+        (
+            if length > 6 then 
+                .[8:10] | tonumber
+            elif $roundUp then
+                $month | days_in_month($year)
+            else
+                1
+            end
+        ) as $day |
+        {$year, $month, $day} | date_add_day |
+        datetime_string
+    end;
 
 def variable($interval; $grid):
     (
@@ -82,13 +86,18 @@ def variable($interval; $grid):
     };
 
 def interval($start_datetime; $end_datetime):
+    ($start_datetime | if not then "" end) as $start_datetime_str |
+    ($end_datetime | if not then "" end) as $end_datetime_str |
     {
-        "@id": "https://w3id.org/hacid/data/cs/dimensions/time/reference-frames/gregorian/regions/\($start_datetime)-\($end_datetime)",
+        "@id": "https://w3id.org/hacid/data/cs/dimensions/time/reference-frames/gregorian/regions/\($start_datetime_str)-\($end_datetime)",
         "@type": "data:TemporalRegion",
         $start_datetime,
         $end_datetime,
-        label: "Time interval \($start_datetime) - \($end_datetime)",
-        coment: "Time interval starting at date time \($start_datetime) and ending at date time \($end_datetime)."
+        label: "Time interval \($start_datetime_str) - \($end_datetime_str)",
+        coment: "Time interval\([
+            if $start_datetime then " starting at date time \($start_datetime)" else "" end,
+            if $start_datetime then " ending at date time \($end_datetime))" else "" end
+        ] | join(" and"))."
     };
 
 def mobile_interval($duration):
