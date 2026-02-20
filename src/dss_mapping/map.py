@@ -14,5 +14,5 @@ def model_to_jsonld(
         (' | ."@context" = context' if include_context else ''),
         args={"type": type(model).__name__},
         library_search_path=[f'{pathlib.Path(__file__).parent.resolve()}/jq']
-    ).input_value(model.model_dump()).first()
+    ).input_value(model.model_dump(mode='json')).first()
     
