@@ -8,4 +8,8 @@ def map:
         JUDGEMENT::contribution
     elif .type | contains("Rating") then
         JUDGEMENT::rating
+    elif .type | contains("User") then
+        {}
+    else
+        error("Unsupported type: \(.type)")
     end;
