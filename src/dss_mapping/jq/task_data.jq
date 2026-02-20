@@ -19,8 +19,21 @@ def task_data:
     elif .data == "single_entity" then
         .task_value?.classInstance?.value
     elif .data == "entity_range" then
-        debug("Unsupported task data type: \(.data)") |
-        {}
+        if .task_uri == "https://w3id.org/hacid/data/cs/wf/ops/ChooseGlobalWarmingLevel" then
+            .task_value |
+            [
+                range(
+                    .start?.label? // "GWL1.5" | .[3:] | tonumber;
+                    .end?.label? // "GWL6.0" | .[3:] | tonumber;
+                    0.5
+                ) | @uri "https://w3id.org/hacid/data/cs/wf/schemes/GlobalWarmingLevel/GWL\(.)"
+            ]
+        else
+            debug("Unsupported task data type: \(.data) for \(.task_uri)")
+        end
+        # {
+        #     "@id": "https://w3id.org/hacid/data/cs/wf/schemes/GlobalWarmingLevelInterval/\(.task_value.start?.label?)-\(.task_value.end?.label?)"
+        # }
     else
         error("Unrecognized task data type: \(.data)")
     end;
