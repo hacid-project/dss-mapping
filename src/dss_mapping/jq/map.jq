@@ -2,10 +2,10 @@ import "request" as REQUEST;
 import "judgement" as JUDGEMENT;
 
 def map:
-    if .type == "Case" then
+    if .type | contains("Case") then
         REQUEST::case
-    elif .type == "Contribution" then
+    elif .type | contains("Contribution") then
         JUDGEMENT::contribution
-    elif .type == "Rating" then
+    elif .type | contains("Rating") then
         JUDGEMENT::rating
     end;
