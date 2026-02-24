@@ -3,15 +3,27 @@ import "jsonld" as JSONLD;
 def context: {
     rdf: "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
     rdfs: "http://www.w3.org/2000/01/rdf-schema#",
+    owl: "http://www.w3.org/2002/07/owl#",
+    xsd: "http://www.w3.org/2001/XMLSchema#",
     top: "https://w3id.org/hacid/onto/top-level/",
     ccso: "https://w3id.org/hacid/onto/ccso/",
     data: "https://w3id.org/hacid/onto/data/",
     jdg: "https://w3id.org/hacid/onto/core/judgement/",
     geo: "http://www.opengis.net/ont/geosparql#",
-    timentervals: "https://w3id.org/hacid/data/cs/dimensions/time/reference-frames/gregorian/regions/",
+    timeintervals: "https://w3id.org/hacid/data/cs/dimensions/time/reference-frames/gregorian/regions/",
+    datavalues: "https://w3id.org/hacid/data/cs/data-values/",
+    dataintervals: "https://w3id.org/hacid/data/cs/data-intervals/",
+
 
     likert: "https://w3id.org/hacid/data/cs/likert-5/",
     ratingdims: "https://w3id.org/hacid/data/cs/contribution-rating-dims/",
+
+    users: "https://w3id.org/hacid/data/cs/dss/users/",
+    cases: "https://w3id.org/hacid/data/cs/dss/cases/",
+    questions: "https://w3id.org/hacid/data/cs/dss/questions/",
+    contributions: "https://w3id.org/hacid/data/cs/dss/contributions/",
+    tolerances:  "https://w3id.org/hacid/data/cs/risk-tolerance/",
+    sectors:  "https://w3id.org/hacid/data/cs/dss/sectors/",
 
     index: "https://w3id.org/hacid/data/cs/climdex/indices/",
     sector: "https://w3id.org/hacid/data/cs/climdex/sectors/",
@@ -27,7 +39,8 @@ def context: {
         "@reverse": "ccso:hasMemberSimulation"
     },
     answers: {
-        "@reverse": "jdg:isJudgementOn"
+        "@reverse": "jdg:isJudgementOn",
+        "@type": "@id"
     },
     value: {
         "@id": "top:value"
@@ -63,6 +76,7 @@ def context: {
                 time_scale: "top:hasRegion",
                 risk_tolerance: "top:classifiedBy",
 
+
                 specialization_on: "data:isSpecializationOn",
                 selected_region: "data:hasSelectedRegion",
                 start_datetime: "data:hasStartDateTime",
@@ -77,7 +91,10 @@ def context: {
             "http://www.w3.org/2001/XMLSchema#duration": {
                 resolution_value: "data:hasResolutionValue",
                 period_value: "data:hasPeriodValue",
-                in_period_resolution_value: "data:hasInPeriodResolutionValue"
+                in_period_resolution_value: "data:hasInPeriodResolutionValue",
+                duration_value: "top:hasDataValue",
+                duration_min: "top:hasMinimumValue",
+                duration_max: "top:hasMaximumValue",
             },
             "geo:wktLiteral": {
                 wkt: "geo:asWKT"
