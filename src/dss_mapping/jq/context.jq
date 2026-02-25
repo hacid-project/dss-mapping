@@ -13,7 +13,8 @@ def context: {
     timeintervals: "https://w3id.org/hacid/data/cs/dimensions/time/reference-frames/gregorian/regions/",
     datavalues: "https://w3id.org/hacid/data/cs/data-values/",
     dataintervals: "https://w3id.org/hacid/data/cs/data-intervals/",
-
+    lengthvalues: "https://w3id.org/hacid/data/cs/length-values/",
+    lengthintervals: "https://w3id.org/hacid/data/cs/length-intervals/",
 
     likert: "https://w3id.org/hacid/data/cs/likert-5/",
     ratingdims: "https://w3id.org/hacid/data/cs/contribution-rating-dims/",
@@ -95,6 +96,10 @@ def context: {
                 duration_value: "top:hasDataValue",
                 duration_min: "top:hasMinimumValue",
                 duration_max: "top:hasMaximumValue",
+            },
+            "http://www.w3.org/2001/XMLSchema#decimal": {
+                decimal_min: "top:hasMinimumValue",
+                decimal_max: "top:hasMaximumValue",
             },
             "geo:wktLiteral": {
                 wkt: "geo:asWKT"

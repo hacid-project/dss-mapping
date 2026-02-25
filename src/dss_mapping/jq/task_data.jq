@@ -7,13 +7,34 @@ def task_data:
     if .data | not then
         null
     elif .data == "number_range" and .task_uri == "https://w3id.org/hacid/data/cs/wf/ops/DefineRelevantSpatialResolutions" then
-        unsupported
+        .task_value |
+        if .kind == "single" then
+            {
+                "@id": @uri "lengthvalues:km/\(.value)",
+                "@type": "top:Region",
+                decimal_value: .value
+            }
+        elif .kind == "range_upto" then
+            {
+                "@id": @uri "lengthintervals:km/-\(.end)",
+                "@type": "top:Region",
+                decimal_max: .end
+            }
+        else 
+            {
+                "@id": @uri "lengthintervals:km/\(.start)-\(.end)",
+                "@type": "top:Region",
+                decimal_min: .start,
+                decimal_max: .end
+            }
+        end
     elif .data == "duration_range" then
         "http://www.w3.org/2001/XMLSchema#" as $xsd_ns |
         .task_value |
         if .kind == "single" then
             {
                 "@id": @uri "datavalues:\($xsd_ns)duration/\(.value)",
+                "@type": "top:Region",
                 duration_value: .value
             }
         elif .kind == "range_upto" then
