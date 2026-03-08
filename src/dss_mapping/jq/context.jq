@@ -80,14 +80,14 @@ def context: {
 
                 specialization_on: "data:isSpecializationOn",
                 selected_region: "data:hasSelectedRegion",
-                start_datetime: "data:hasStartDateTime",
-                end_datetime: "data:hasEndDateTime",
                 based_on_ds: "data:basedOnDimensionalSpace",
                 discretization: "data:hasDiscretization",
                 exact_bounding_region: "data:hasExactBoundingRegion",
             },
             "http://www.w3.org/2001/XMLSchema#dateTime": {
-                date: "top:hasIntervalDate"
+                date: "top:hasIntervalDate",
+                start_datetime: "data:hasStartDateTime",
+                end_datetime: "data:hasEndDateTime"
             },
             "http://www.w3.org/2001/XMLSchema#duration": {
                 resolution_value: "data:hasResolutionValue",
