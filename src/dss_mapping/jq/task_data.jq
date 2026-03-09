@@ -28,7 +28,7 @@ def subannual_period:
             start_datetime: "0000-\($month | UTILS::lpad(2; "0"))-01T00:00:00.000Z",
             end_datetime: "000\(if $month == 12 then "1" else "0" end)-\(($month % 12 + 1) | UTILS::lpad(2; "0"))-01T00:00:00.000Z"
         }
-    elif .kind == "months_block" or .kind == "month_range" then
+    elif .kind == "months_block" or .kind == "month_range" or .kind == "season" then
         .value.start.month as $start_month |
         .value.end.month as $end_month |
         {
@@ -65,6 +65,12 @@ def task_data:
                 "@type": "top:Region",
                 decimal_value: .value
             }
+        elif .kind == "range_from" then
+            {
+                "@id": @uri "lengthintervals:km/\(.start)-",
+                "@type": "top:Region",
+                decimal_min: .start
+            }
         elif .kind == "range_upto" then
             {
                 "@id": @uri "lengthintervals:km/-\(.end)",
@@ -87,6 +93,12 @@ def task_data:
                 "@id": @uri "datavalues:\($xsd_ns)duration/\(.value)",
                 "@type": "top:Region",
                 duration_value: .value
+            }
+        elif .kind == "range_from" then
+            {
+                "@id": @uri "dataintervals:\($xsd_ns)duration/\(.start)-",
+                "@type": "top:Region",
+                duration_min: .start
             }
         elif .kind == "range_upto" then
             {
