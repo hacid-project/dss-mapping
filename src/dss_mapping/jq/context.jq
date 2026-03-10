@@ -11,6 +11,10 @@ def context: {
     jdg: "https://w3id.org/hacid/onto/core/judgement/",
     geo: "http://www.opengis.net/ont/geosparql#",
     timeintervals: "https://w3id.org/hacid/data/cs/dimensions/time/reference-frames/gregorian/regions/",
+    annualdayrange: "https://w3id.org/hacid/data/cs/dimensions/time/reference-frames/gregorian/regions/subannual-period/day-range/",
+    annualmonthrange: "https://w3id.org/hacid/data/cs/dimensions/time/reference-frames/gregorian/regions/subannual-period/month-range/",
+    annualmonth: "https://w3id.org/hacid/data/cs/dimensions/time/reference-frames/gregorian/regions/subannual-period/month/",
+    season: "https://w3id.org/hacid/data/cs/dimensions/time/reference-frames/gregorian/regions/subannual-period/season/",
     datavalues: "https://w3id.org/hacid/data/cs/data-values/",
     dataintervals: "https://w3id.org/hacid/data/cs/data-intervals/",
     lengthvalues: "https://w3id.org/hacid/data/cs/length-values/",
@@ -23,8 +27,9 @@ def context: {
     cases: "https://w3id.org/hacid/data/cs/dss/cases/",
     questions: "https://w3id.org/hacid/data/cs/dss/questions/",
     contributions: "https://w3id.org/hacid/data/cs/dss/contributions/",
-    tolerances:  "https://w3id.org/hacid/data/cs/risk-tolerance/",
-    sectors:  "https://w3id.org/hacid/data/cs/dss/sectors/",
+    tolerances: "https://w3id.org/hacid/data/cs/risk-tolerance/",
+    sectors: "https://w3id.org/hacid/data/cs/dss/sectors/",
+    orgs:  "https://w3id.org/hacid/data/cs/dss/organizations/",
 
     index: "https://w3id.org/hacid/data/cs/climdex/indices/",
     sector: "https://w3id.org/hacid/data/cs/climdex/sectors/",
@@ -36,6 +41,7 @@ def context: {
     temporalgrid: "https://w3id.org/hacid/data/cs/dimensions/time/reference-frames/gregorian/quantizations/",
     time: "https://w3id.org/hacid/data/cs/dimensions/time/reference-frames/",
     geodetic: "https://w3id.org/hacid/data/cs/dimensions/geodetic/reference-frames/",
+    geometries: "https://w3id.org/hacid/data/cs/dimensions/geodetic/reference-frames/WGS84/regions/wkt/",
     ensemble: {
         "@reverse": "ccso:hasMemberSimulation"
     },

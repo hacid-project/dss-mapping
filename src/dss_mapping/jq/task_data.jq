@@ -6,7 +6,7 @@ def unsupported:
     debug("Unsupported task data type: \(.data) for \(.task_uri)") | {};
 
 def task_data: 
-    if .data | not then
+    if (.data | not) or (.task_value | not) then
         null
     elif .data == "number_range" and .task_uri == "https://w3id.org/hacid/data/cs/wf/ops/DefineRelevantSpatialResolutions" then
         .task_value |

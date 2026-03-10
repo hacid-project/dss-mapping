@@ -87,7 +87,7 @@ def subannual_period:
         .
     elif .kind == "day_range" then
         [
-            .begin, .end |
+            .value | .start, .end |
             .[1:] | .[index("-")+1:]
         ] as [$start, $end] |
         {

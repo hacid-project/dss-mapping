@@ -89,14 +89,14 @@ def interval($start_datetime; $end_datetime):
     ($start_datetime | if not then "" end) as $start_datetime_str |
     ($end_datetime | if not then "" end) as $end_datetime_str |
     {
-        "@id": "https://w3id.org/hacid/data/cs/dimensions/time/reference-frames/gregorian/regions/\($start_datetime_str)-\($end_datetime)",
+        "@id": "https://w3id.org/hacid/data/cs/dimensions/time/reference-frames/gregorian/regions/\($start_datetime_str)-\($end_datetime_str)",
         "@type": "data:TemporalRegion",
         $start_datetime,
         $end_datetime,
         label: "Time interval \($start_datetime_str) - \($end_datetime_str)",
         coment: "Time interval\([
-            if $start_datetime then " starting at date time \($start_datetime)" else "" end,
-            if $start_datetime then " ending at date time \($end_datetime))" else "" end
+            if $start_datetime then " starting at date time \($start_datetime)" else empty end,
+            if $end_datetime then " ending at date time \($end_datetime))" else empty end
         ] | join(" and"))."
     };
 

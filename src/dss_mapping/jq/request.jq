@@ -33,8 +33,9 @@ def geometry:
 def request: {
     "@type": "ccso:Request",
     impacts: ((.hazards // [])| map({
+        "@type": "ccso:ImpactType",
         hazard: (.value | fromjson | .hazard?.value),
-        description: .description
+        comment: (.description | if length == 0 then null end)
     })),
     answers: (
         (.contributions // []) |
@@ -57,7 +58,7 @@ def case($map_questions): request + {
     stakeholder: (
         .organization |
         if . then {
-            "@id": @uri "org:\(.)",
+            "@id": @uri "orgs:\(.)",
             label: .
         } end
     ),
