@@ -1,58 +1,9 @@
 import "time" as TIME;
 import "utils" as UTILS;
+import "subannual_period" as SUBANNUAL;
 
 def unsupported:
     debug("Unsupported task data type: \(.data) for \(.task_uri)") | {};
-
-def subannual_period:
-    if . | not then
-        .
-    elif .kind == "day_range" then
-        [
-            .begin, .end |
-            .[1:] | .[index("-")+1:]
-        ] as [$start, $end] |
-        {
-            "@id": @uri "annualdayrange:\($start)-\($end)",
-            "@type": ["data:TemporalRegion", "data:PeriodicRegion"],
-            period: "P1Y",
-            start_datetime: "0000-\($start)",
-            end_datetime: "000\(if $end >= $start then "0" else "1" end)-\($end)"
-        }
-    elif .kind == "single_month" then
-        .value.start.month as $month |
-        {
-            "@id": @uri "annualmonth:\($month)",
-            "@type": ["data:TemporalRegion", "data:PeriodicRegion"],
-            period: "P1Y",
-            start_datetime: "0000-\($month | UTILS::lpad(2; "0"))-01T00:00:00.000Z",
-            end_datetime: "000\(if $month == 12 then "1" else "0" end)-\(($month % 12 + 1) | UTILS::lpad(2; "0"))-01T00:00:00.000Z"
-        }
-    elif .kind == "months_block" or .kind == "month_range" or .kind == "season" then
-        .value.start.month as $start_month |
-        .value.end.month as $end_month |
-        {
-            "@id": @uri "annualmonthrange:\($start_month)-\($end_month)",
-            "@type": ["data:TemporalRegion", "data:PeriodicRegion"],
-            period: "P1Y",
-            start_datetime: "0000-\($start_month | UTILS::lpad(2; "0"))-01T00:00:00.000Z",
-            end_datetime: "000\(if $end_month == 12 or $end_month < $start_month then "1" else "0" end)-\(($end_month % 12 + 1) | UTILS::lpad(2; "0"))-01T00:00:00.000Z",
-            components: [
-                if $end_month >= $start_month then
-                    range($start_month; $end_month + 1)
-                else
-                    range($start_month; 13),
-                    range(1; $end_month + 1)
-                end |
-                {
-                    kind: "single_month",
-                    value: {start: {month: .}}
-                } | subannual_period
-            ]
-        }
-    else
-        debug("Unsupported subannual period: \(.)") | {}
-    end;
 
 def task_data: 
     if .data | not then
@@ -120,7 +71,7 @@ def task_data:
         [.start,.end] |
         TIME::strings_to_interval
     elif .data == "subannual_period" then
-        .task_value | subannual_period
+        .task_value | SUBANNUAL::subannual_period
 #        unsupported
     elif .data == "single_entity" then
         .task_value?.classInstance?.value
