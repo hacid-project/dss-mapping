@@ -77,7 +77,7 @@ def context: {
                 costant_default_input: "top:hasCostantDefaultInput",
                 prev_task: "top:directlyFollows",
                 input_from_tasks: "top:getsInputFromTask",
-                rationale: "top:rartionale",
+                rationale: "top:rationale",
                 stakeholder: "ccso:hasStakeholder",
                 location: "top:hasRegion",
                 time_scale: "top:hasRegion",
