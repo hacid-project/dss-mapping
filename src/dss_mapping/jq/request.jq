@@ -30,12 +30,14 @@ def geometry:
         }
     end;
 
-def request: {
+def request($id): {
+    "@id": $id,
     "@type": "ccso:Request",
-    impacts: ((.hazards // [])| map({
+    impacts: ((.hazards // [])| to_entries | map({
+        "@id": "\($id)/impact-types/\(.key)",
         "@type": "ccso:ImpactType",
-        hazard: (.value | fromjson | .hazard?.value),
-        comment: (.description | if length == 0 then null end)
+        hazard: (.value.value | fromjson | .hazard?.value),
+        comment: (.value.description | if length == 0 then null end)
     })),
     answers: (
         (.contributions // []) |
@@ -43,16 +45,14 @@ def request: {
     )
 };
 
-def question: request + {
-    "@id": @uri "questions:\(.id)",
+def question: request(@uri "questions:\(.id)") + {
     maintained_by: @uri "users:\(.owner_id)",
     label: .question,
     additional_information: .additional_information,
     comment: .description
 };
 
-def case($map_questions): request + {
-    "@id": @uri "cases:\(.id)",
+def case($map_questions): request(@uri "cases:\(.id)") + {
     maintained_by: @uri "users:\(.owner?.id)",
     label: .title,
     stakeholder: (
