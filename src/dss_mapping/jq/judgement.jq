@@ -13,6 +13,7 @@ def judgment: {
 def contribution: judgment + {
     "@id": @uri "contributions:\(.id)",
     "@type": "ccso:Assessment",
+    judges_on: @uri "questions:\(.question_id)",
     judge: @uri "users:\(.owner_id)",
     label: "Contribution #\(.id)",
     comment: .comment,
