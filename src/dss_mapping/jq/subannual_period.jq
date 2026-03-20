@@ -67,7 +67,7 @@ def season:
         label: $season.label
     }
     else {
-        "@id": @uri "annualdayrange:\([.start.month, .start.day, .end.month, .end.day | UTILS::lpad(2; "0")] | join("-"))"
+        "@id": "annualdayrange:\([.start.month, .start.day, .end.month, .end.day | UTILS::lpad(2; "0")] | join("-"))"
     }
     end + {
         "@type": ["data:TemporalRegion", "data:PeriodicRegion"],
@@ -91,7 +91,7 @@ def subannual_period:
             .[1:] | .[index("-")+1:]
         ] as [$start, $end] |
         {
-            "@id": @uri "annualdayrange:\($start)-\($end)",
+            "@id": "annualdayrange:\($start)-\($end)",
             "@type": ["data:TemporalRegion", "data:PeriodicRegion"],
             period: "P1Y",
             start_datetime: "0000-\($start)",
