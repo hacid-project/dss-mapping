@@ -72,9 +72,14 @@ def task_data:
         TIME::strings_to_interval
     elif .data == "subannual_period" then
         .task_value | SUBANNUAL::subannual_period
-#        unsupported
     elif .data == "single_entity" then
-        .task_value?.classInstance?.value
+        .task_value |
+        if not then null
+        elif type=="array" then
+            map(.classInstance?.value)
+        else
+            .classInstance?.value
+        end
     elif .data == "entity_range" and .task_uri == "https://w3id.org/hacid/data/cs/wf/ops/ChooseGlobalWarmingLevel" then
         .task_value |
         [
