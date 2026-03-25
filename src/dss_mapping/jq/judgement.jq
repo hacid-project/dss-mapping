@@ -1,12 +1,11 @@
 include "task_data";
+import "time" as TIME;
 
 def judgment: {
-    created_at: (
+    observable_at: (
         .created_at |
-        if . then {
-            "@id": @uri "after:\(.)",
-            date: .
-        } end
+        if . then TIME::interval(.; null)
+        end
     ),
 };
 
@@ -115,7 +114,7 @@ def rating:
                 },
                 classified_by: {
                     "@id": @uri "ratingdims:\(.)",
-                    value: .
+                    label: .
                 }
             })
         )

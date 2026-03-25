@@ -70,7 +70,7 @@ def context: {
                 tasks: "top:definesTask",
                 judge: "jdg:hasJudge",
                 judges_on: "jdg:isJudgementOn",
-                created_at: "top:isObservableAt",
+                observable_at: "top:isObservableAt",
                 obj_value: "top:hasValue",
                 classified_by: "top:classifiedBy",
                 operation: "top:executedThroughOperation",
